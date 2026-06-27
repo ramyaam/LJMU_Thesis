@@ -2,25 +2,65 @@
 
 ## Overview
 
-This repository contains the implementation developed as part of my master's thesis titled:
+This repository contains the implementation developed for my master's thesis titled:
 
 **Sequence-Aware Customer Lifetime Value Prediction Using Hybrid AI Models**
 
-The project investigates how incorporating sequential customer transaction behavior alongside traditional customer-level features can improve Customer Lifetime Value (CLV) prediction. Multiple machine learning, deep learning, and hybrid AI models are developed and compared to evaluate their predictive performance.
+The project investigates Customer Lifetime Value (CLV) prediction by combining traditional customer-level features with sequential transaction behavior. The objective is to evaluate whether incorporating purchase sequences through an LSTM model can improve prediction accuracy over conventional machine learning approaches.
 
 ---
 
 ## Research Objective
 
-Traditional CLV prediction models primarily rely on aggregated customer features such as Recency, Frequency, and Monetary (RFM) values. While effective, these approaches often ignore the temporal order of customer transactions.
+Customer Lifetime Value is an important metric for customer relationship management and marketing decision-making. Traditional CLV prediction models typically rely on aggregated customer features such as Recency, Frequency, and Monetary (RFM) values.
 
-This research explores whether sequence-aware learning using Long Short-Term Memory (LSTM) networks, combined with ensemble machine learning algorithms, can improve CLV prediction accuracy.
+This research extends the traditional approach by learning customer purchasing behavior from transaction sequences using an LSTM model. The learned sequence embeddings are combined with engineered customer features to build hybrid prediction models.
+
+---
+
+## Dataset
+
+The implementation uses the **Online Retail** dataset.
+
+The preprocessing pipeline includes:
+
+* Data cleaning
+* Missing value handling
+* Removal of cancelled transactions
+* Total purchase value calculation
+* Customer-level aggregation
+
+The dataset is divided into:
+
+* **Observation Period** – used to generate customer features
+* **Prediction Period** – used to calculate the target Customer Lifetime Value (CLV)
+
+---
+
+## Feature Engineering
+
+Customer-level features include:
+
+* Recency
+* Frequency
+* Monetary Value (RFM)
+* Additional customer behavioral features derived from transaction history
+
+The target variable (CLV) is log-transformed before model training.
+
+---
+
+## Sequence-Aware Learning
+
+Customer purchase histories are converted into fixed-length transaction sequences.
+
+An LSTM network is trained to learn sequential purchasing behavior. The hidden layer representations (sequence embeddings) are extracted and combined with customer-level features to construct hybrid datasets.
 
 ---
 
 ## Models Implemented
 
-### Machine Learning Models
+### Baseline Machine Learning Models
 
 * Linear Regression
 * Decision Tree Regressor
@@ -34,54 +74,39 @@ This research explores whether sequence-aware learning using Long Short-Term Mem
 
 ### Hybrid Models
 
-* LSTM + XGBoost
-* LSTM + LightGBM
-
-The hybrid models combine learned sequential transaction embeddings from the LSTM with engineered customer-level features before training gradient boosting models.
-
----
-
-## Dataset
-
-The experiments use the **Online Retail** dataset containing customer transaction records.
-
-Typical preprocessing includes:
-
-* Data cleaning
-* Removal of cancelled transactions
-* Missing value handling
-* Customer aggregation
-* Feature engineering
-* RFM feature creation
-* Sequential transaction generation
-* Log transformation of the target variable
+* LSTM Embeddings + XGBoost
+* LSTM Embeddings + LightGBM
 
 ---
 
 ## Project Workflow
 
-1. Data preprocessing
-2. Feature engineering
-3. Customer sequence generation
-4. Feature scaling
-5. Train-test split
-6. Baseline machine learning models
-7. LSTM sequence model
-8. Hybrid LSTM + Gradient Boosting models
-9. Model evaluation
-10. Feature importance analysis
+1. Install required libraries
+2. Load and clean the Online Retail dataset
+3. Create observation and prediction periods
+4. Generate Customer Lifetime Value target
+5. Perform RFM feature engineering
+6. Prepare data for baseline models
+7. Train and evaluate baseline machine learning models
+8. Generate customer transaction sequences
+9. Build and train the LSTM sequence model
+10. Extract LSTM sequence embeddings
+11. Create hybrid datasets by combining engineered features with sequence embeddings
+12. Train Hybrid XGBoost and Hybrid LightGBM models
+13. Compare model performance
+14. Visualize prediction results and residual errors
 
 ---
 
 ## Evaluation Metrics
 
-Models are evaluated using:
+Model performance is evaluated using:
 
 * Mean Absolute Error (MAE)
 * Root Mean Squared Error (RMSE)
 * R² Score
 
-The target variable is log-transformed during training and converted back to the original scale before evaluation.
+Predictions are converted back to the original CLV scale before evaluation.
 
 ---
 
@@ -95,71 +120,35 @@ The target variable is log-transformed during training and converted back to the
 * XGBoost
 * LightGBM
 * Matplotlib
+* Seaborn
 * Google Colab
 
 ---
 
-## Repository Structure
+## Repository Contents
 
+```text
+SourceCode.ipynb        # Complete implementation
+README.md               # Project documentation
 ```
-├── data/
-│   └── OnlineRetail.xlsx
-│
-├── notebooks/
-│   └── CLV_Model_Building.ipynb
-│
-├── README.md
-└── requirements.txt
-```
-
-(Modify the structure above to match your repository.)
 
 ---
 
-## Installation
+## Key Outputs
 
-Clone the repository:
+The notebook includes:
 
-```bash
-git clone https://github.com/your-username/your-repository.git
-```
-
-Install the required libraries:
-
-```bash
-pip install -r requirements.txt
-```
-
-Open the notebook and run the cells sequentially.
+* Performance comparison of all models
+* Random Forest feature importance
+* Actual vs Predicted CLV visualization
+* Residual error analysis
+* Hybrid model evaluation
 
 ---
 
-## Results
+## Research Purpose
 
-The study compares traditional machine learning models, sequence-based deep learning, and hybrid approaches to analyze the impact of sequential transaction information on Customer Lifetime Value prediction.
-
-Performance comparisons are based on MAE, RMSE, and R² metrics.
-
----
-
-## Future Work
-
-Potential future improvements include:
-
-* Transformer-based sequence models
-* Attention mechanisms
-* Temporal Graph Neural Networks
-* Hyperparameter optimization
-* Real-world customer datasets
-* Deployment as a prediction API
-
----
-
-## Academic Use
-
-This repository was created for academic research purposes as part of a master's thesis.
-
-If you use this work in your research, please provide appropriate citation.
+This repository is intended for academic research and demonstrates the implementation of sequence-aware Customer Lifetime Value prediction using machine learning, deep learning, and hybrid AI models.
 
 ---
 
@@ -167,13 +156,7 @@ If you use this work in your research, please provide appropriate citation.
 
 **Ramya M**
 
-Master's Thesis Research
+Master's Thesis
 
 **Research Title:**
 *Sequence-Aware Customer Lifetime Value Prediction Using Hybrid AI Models*
-
----
-
-## License
-
-This project is intended for educational and research purposes.
